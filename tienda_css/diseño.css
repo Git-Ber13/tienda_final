@@ -1,0 +1,89 @@
+
+.nav-pills .nav-link.active {
+    background-color: #8c1c9b;
+    color: #ffffff;
+   
+}
+.nav-pills .nav-link.active:hover{
+    background-color: #8929af;
+}
+.carousel-slide {
+  max-width: 50px;
+  /* Ajusta el ancho máximo */
+  margin: 0 auto;
+  /* Centra el carrusel en la página */
+}
+.custom-navbar {
+  background-color: #3b3835;
+  /* Color verde personalizado */
+}
+
+.tColor {
+  color: #fd8b3f;
+  /* Verde personalizado */
+  background: #532a03;
+}
+/* .carousel-slide{
+  width: 60%;
+} */
+.tColor2 {
+  color: #ffffff;
+  /* Verde personalizado */
+}
+.footer{
+  background-color: #3b3835;
+  position: sticky;
+}
+body{
+  background-color: #b1b1b1;
+  display: flex;
+}
+main{
+  flex: 1;
+  padding:1px;
+  min-height: 100vh;
+  margin-top: 10em;
+}
+iframe{
+  margin-bottom: 10px;
+}
+/* Estilos básicos */
+.productos-interes {
+  padding: 20px;
+}
+.productos-lista {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.producto {
+  border: 1px solid #ccc;
+  padding: 10px;
+  width: 18%;
+  text-align: center;
+  box-sizing: border-box;
+}
+.producto img {
+  max-width: 100%;
+  height: auto;
+}
+.producto h4 {
+  font-size: 18px;
+  margin: 10px 0;
+}
+.producto p {
+  font-size: 14px;
+  color: #555;
+}
+.producto a {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
+.producto a:hover {
+  background-color: #0056b3;
+}

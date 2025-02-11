@@ -1,0 +1,57 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: #ebe9e9;
+}
+
+.productos {
+    margin-top: 1em;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    
+}
+
+.producto {
+    border-radius: 10%;
+    background: #c7c5c5;
+    border: 1px solid #ddd;
+    padding: 10px;
+    width: 200px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9); /* Agrega una sombra suave */
+}
+
+.producto {
+    border-radius: 10%;
+    background: #c7c5c5;
+    border: 1px solid #ddd;
+    padding: 10px;
+    width: 200px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 1.6); /* Sombra suave para los productos */
+}
+
+button, .btn {
+    border-radius: 5px; /* Redondeo de los bordes */
+    padding: 10px 20px;
+    background-color: #007bff; /* Color de fondo para los botones */
+    color: white;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6); /* Sombra suave para los botones */
+    transition: box-shadow 0.3s ease; /* Transición suave para el cambio de sombra */
+}
+
+button:hover, .btn:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 1); /* Sombra más intensa al hacer hover */
+}
+
+/* Elimina estas reglas personalizadas */
+table {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 1.6);
+}
+
+/* Elimina estos estilos también, Bootstrap se encargará del striped y del encabezado */
+/* th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+} */
