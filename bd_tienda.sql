@@ -28,9 +28,9 @@ CREATE TABLE IF NOT EXISTS `accesos` (
   `correcto` tinyint(4) DEFAULT NULL,
   `fecha` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla bd_tienda.accesos: ~44 rows (aproximadamente)
+-- Volcando datos para la tabla bd_tienda.accesos: ~60 rows (aproximadamente)
 DELETE FROM `accesos`;
 INSERT INTO `accesos` (`id`, `email`, `pass`, `ip`, `correcto`, `fecha`) VALUES
 	(1, NULL, NULL, NULL, 1, '2024-12-16 18:22:38'),
@@ -90,23 +90,23 @@ INSERT INTO `accesos` (`id`, `email`, `pass`, `ip`, `correcto`, `fecha`) VALUES
 	(56, 'admin@gmail.com', '1111', '::1', 1, '2025-02-11 15:52:20'),
 	(57, 'tab@gmail.com', '1111', '::1', 0, '2025-02-11 19:44:07'),
 	(58, 'admin@gmail.com', '1111', '::1', 1, '2025-02-11 19:44:18'),
-	(59, 'admin@gmail.com', '1111', '::1', 1, '2025-02-11 19:46:05');
+	(59, 'admin@gmail.com', '1111', '::1', 1, '2025-02-11 19:46:05'),
+	(60, 'tab@gmail.com', '1111', '::1', 0, '2025-02-12 15:49:31'),
+	(61, 'admin@gmail.com', '1111', '::1', 1, '2025-02-12 15:49:36'),
+	(62, 'admin@gmail.com', '1111', '::1', 1, '2025-02-12 19:38:49');
 
 -- Volcando estructura para tabla bd_tienda.categorias
 CREATE TABLE IF NOT EXISTS `categorias` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(50) NOT NULL,
-  KEY `cat-prod` (`id`),
-  CONSTRAINT `cat-prod` FOREIGN KEY (`id`) REFERENCES `productos` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  PRIMARY KEY (`nombre`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla bd_tienda.categorias: ~4 rows (aproximadamente)
+-- Volcando datos para la tabla bd_tienda.categorias: ~3 rows (aproximadamente)
 DELETE FROM `categorias`;
-INSERT INTO `categorias` (`id`, `nombre`) VALUES
-	(4, 'Capulle'),
-	(5, 'hombre'),
-	(6, 'mujer'),
-	(7, 'ofertas');
+INSERT INTO `categorias` (`nombre`) VALUES
+	('hombre'),
+	('mujer'),
+	('ofertas');
 
 -- Volcando estructura para tabla bd_tienda.detalles_pedido
 CREATE TABLE IF NOT EXISTS `detalles_pedido` (
@@ -121,7 +121,7 @@ CREATE TABLE IF NOT EXISTS `detalles_pedido` (
   CONSTRAINT `producto-id` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla bd_tienda.detalles_pedido: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla bd_tienda.detalles_pedido: ~16 rows (aproximadamente)
 DELETE FROM `detalles_pedido`;
 INSERT INTO `detalles_pedido` (`id_pedido`, `id_producto`, `id`, `cantidad`) VALUES
 	(4, 4, 1, 1),
@@ -139,7 +139,14 @@ INSERT INTO `detalles_pedido` (`id_pedido`, `id_producto`, `id`, `cantidad`) VAL
 	(6, 6, 13, 1),
 	(6, 6, 14, 1),
 	(6, 6, 15, 1),
-	(6, 6, 16, 1);
+	(6, 6, 16, 1),
+	(7, 1, 17, 1),
+	(7, 5, 18, 1),
+	(7, 5, 19, 1),
+	(7, 5, 20, 1),
+	(7, 8, 21, 1),
+	(7, 7, 22, 1),
+	(7, 8, 23, 1);
 
 -- Volcando estructura para tabla bd_tienda.fotos
 CREATE TABLE IF NOT EXISTS `fotos` (
@@ -149,7 +156,7 @@ CREATE TABLE IF NOT EXISTS `fotos` (
   CONSTRAINT `fotos-productos` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla bd_tienda.fotos: ~14 rows (aproximadamente)
+-- Volcando datos para la tabla bd_tienda.fotos: ~13 rows (aproximadamente)
 DELETE FROM `fotos`;
 INSERT INTO `fotos` (`ruta`, `id_producto`) VALUES
 	('img/cazadora_negra.jpg', 1),
@@ -187,12 +194,13 @@ CREATE TABLE IF NOT EXISTS `pedidos` (
   CONSTRAINT `usuario-pedido` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`email`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla bd_tienda.pedidos: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla bd_tienda.pedidos: ~3 rows (aproximadamente)
 DELETE FROM `pedidos`;
 INSERT INTO `pedidos` (`id`, `total`, `fecha`, `id_usuario`) VALUES
 	(4, 58.990000, '2025-02-11 18:47:09', 'admin@gmail.com'),
 	(5, 39.000000, '2025-02-11 18:48:23', 'admin@gmail.com'),
-	(6, 458.980000, '2025-02-11 18:52:37', 'admin@gmail.com');
+	(6, 458.980000, '2025-02-11 18:52:37', 'admin@gmail.com'),
+	(7, 198.940000, '2025-02-12 18:05:41', 'admin@gmail.com');
 
 -- Volcando estructura para tabla bd_tienda.productos
 CREATE TABLE IF NOT EXISTS `productos` (
@@ -203,10 +211,12 @@ CREATE TABLE IF NOT EXISTS `productos` (
   `descripcion` varchar(50) DEFAULT NULL,
   `desc_larga` varchar(250) DEFAULT NULL,
   `precio` decimal(20,2) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `prod-cat` (`categoria`),
+  CONSTRAINT `prod-cat` FOREIGN KEY (`categoria`) REFERENCES `categorias` (`nombre`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla bd_tienda.productos: ~15 rows (aproximadamente)
+-- Volcando datos para la tabla bd_tienda.productos: ~13 rows (aproximadamente)
 DELETE FROM `productos`;
 INSERT INTO `productos` (`id`, `nombre`, `categoria`, `tiene_oferta`, `descripcion`, `desc_larga`, `precio`) VALUES
 	(1, 'Cazadora Negra', 'hombre', NULL, 'Cazadora negra', 'Cazadora negra para hombre con forro interior', 39.00),
@@ -220,8 +230,8 @@ INSERT INTO `productos` (`id`, `nombre`, `categoria`, `tiene_oferta`, `descripci
 	(9, 'Falda de Cuero', 'mujer', NULL, 'Falda de cuero', 'Falda de cuero negra con tejido de animal maltratado', 19.99),
 	(10, 'Blusa Blanca', 'mujer', NULL, 'Blusa blanca', 'Blusa blanca perfecta para trabajar en oficina', 17.99),
 	(11, 'Vestido Blanco', 'mujer', NULL, 'Vestido blanco de fiesta', 'Vestido blanco para irte de fiesta pareciendo pija', 49.99),
-	(12, 'Vestido negro de fiesta', 'mujer', NULL, 'Vestido negro de fiesta.', 'Lo mismo pero en negro', 49.00),
-	(14, 'Pantalones negros', 'hombre', '1', 'Pantalones negros', 'Son negros, sí.', 19.00);
+	(12, 'Vestido negro de fiesta', 'ofertas', NULL, 'Vestido negro de fiesta.', 'Lo mismo pero en negro', 49.00),
+	(14, 'Pantalones negros', 'ofertas', '1', 'Pantalones negros', 'Son negros, sí.', 19.00);
 
 -- Volcando estructura para tabla bd_tienda.usuarios
 CREATE TABLE IF NOT EXISTS `usuarios` (
@@ -241,7 +251,7 @@ DELETE FROM `usuarios`;
 INSERT INTO `usuarios` (`nombre`, `pass`, `email`, `telefono`, `direccion`, `cp`, `provincia`, `rol`) VALUES
 	('11', '$2y$10$/J5s2DUF5tquNG9aQlrope9HShovc8OsKw2/TXtHPgA.EuT2Ls1Nm', '111@gmail.com', '1', '11', '11', '111', 'usuario'),
 	('2', '$2y$10$e1GwOgngJYg9gr/7OtadiucMMiSeLKgFOu8UuozRPd7xLYK6VQA5a', '2@gmail.com', '2', '2', '2', '2', 'usuario'),
-	('admin', '1111', 'admin@gmail.com', '1', '', NULL, NULL, 'admin'),
+	('Admin', '1111', 'admin@gmail.com', '1', '11', '1', '1', 'admin'),
 	('juan', '1111', 'juan@gmail.com', '111111111', '11', '11', '11', 'usuario'),
 	('Juan Carlos', '1111', 'juancarlos@gmail.com', '11111111111', '111', '111', '111', 'usuario'),
 	('Juan Manuel', '1111', 'juanmanuel@gmail.com', '11111111111', '111', '111', '111', 'usuario'),
