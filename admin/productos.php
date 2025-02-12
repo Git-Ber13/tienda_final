@@ -9,10 +9,6 @@ require_once 'nav.php';
 <div class="container">
     <div class="row">
         <div class="col-md-6">
-            <h4>
-                Cada prenda que elijas es una oportunidad para expresar tu estilo único. Viste con confianza, porque
-                cuando te sientes bien, el mundo también lo nota.
-            </h4>
             <h3>Productos Actuales</h3>
             <table class="table table-bordered">
                 <thead class="thead-dark">

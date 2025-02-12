@@ -1,6 +1,6 @@
-<?php require_once 'cabecera.php'; ?>
-<?php require_once 'checkin.php'; ?>
-<?php require_once 'bd_conexion.php'; ?>
+<?php require_once 'cabecera.php';
+require_once 'checkin.php';
+require_once 'bd_conexion.php'; ?>
 
 <!-- Obtener categoría de la URL -->
 <?php

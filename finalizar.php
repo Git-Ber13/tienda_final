@@ -19,13 +19,13 @@ try {
     $id_pedido = $conn->lastInsertId();
 
     // Insertar los detalles del pedido
-    $stmt = $conn->prepare("INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (:id_pedido, :id_pedido, :cantidad)");
+    $stmt = $conn->prepare("INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (:id_pedido, :id_producto, :cantidad)");
 
     foreach ($_SESSION['carrito'] as $item) {
         $stmt->execute([
             'id_pedido' => $id_pedido,
-            'id_producto' => $item['id'],
-            'cantidad' => 1
+            'id_producto' => $item['id'],  // Se asegura de que se inserte el id del producto
+            'cantidad' => 1  // Asumimos que la cantidad es 1 para cada producto en el carrito
         ]);
     }
 
@@ -51,4 +51,3 @@ try {
         </main>
     </body>
 </html>
-

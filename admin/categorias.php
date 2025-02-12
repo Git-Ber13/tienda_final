@@ -4,14 +4,14 @@ require_once '../admin_check.php';
 require_once '../bd_conexion.php';
 
 // Función para eliminar categoría
-if (isset($_GET['eliminar_id'])) {
-    $id_eliminar = $_GET['eliminar_id'];
+if (isset($_GET['eliminar_nombre'])) {
+    $nombre_eliminar = $_GET['eliminar_nombre'];
 
-    if (filter_var($id_eliminar, FILTER_VALIDATE_INT)) {
+    if (!empty($nombre_eliminar)) {
         try {
-            $delete_categoria = "DELETE FROM categorias WHERE id = :id";
+            $delete_categoria = "DELETE FROM categorias WHERE nombre = :nombre";
             $stmt = $conn->prepare($delete_categoria);
-            $stmt->bindParam(':id', $id_eliminar, PDO::PARAM_INT);
+            $stmt->bindParam(':nombre', $nombre_eliminar, PDO::PARAM_STR);
             $stmt->execute();
 
             echo "<script>alert('Categoría eliminada correctamente');</script>";
@@ -22,26 +22,24 @@ if (isset($_GET['eliminar_id'])) {
 }
 
 // Si se hace una actualización (POST) para modificar la categoría
-if (isset($_POST['modificar_categoria']) && isset($_POST['id_categoria'])) {
-    $id_modificar = $_POST['id_categoria'];
+if (isset($_POST['modificar_categoria']) && isset($_POST['nombre_categoria'])) {
+    $nombre_modificar = $_POST['nombre_categoria'];
     $nombre = $_POST['nombre'];
 
-    // Verificar si el id es válido
-    if (filter_var($id_modificar, FILTER_VALIDATE_INT)) {
-        try {
-            // Actualizar categoría
-            $update_categoria = "UPDATE categorias SET nombre = :nombre WHERE id = :id";
-            $stmt = $conn->prepare($update_categoria);
-            $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
-            $stmt->bindParam(':id', $id_modificar, PDO::PARAM_INT);
-            $stmt->execute();
+    // Aquí no es necesario verificar si el nombre es un entero
+    try {
+        // Actualizar categoría
+        $update_categoria = "UPDATE categorias SET nombre = :nombre WHERE nombre = :nombre";
+        $stmt = $conn->prepare($update_categoria);
+        $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+        $stmt->bindParam(':nombre', $nombre_modificar, PDO::PARAM_STR);
+        $stmt->execute();
 
-            echo "<script>alert('Categoría actualizada correctamente');</script>";
-            header('Location: categorias.php');  // Redirige después de actualizar
-            exit;
-        } catch (PDOException $e) {
-            echo "<script>alert('Error al actualizar la categoría: " . $e->getMessage() . "');</script>";
-        }
+        echo "<script>alert('Categoría actualizada correctamente');</script>";
+        header('Location: categorias.php');  // Redirige después de actualizar
+        exit;
+    } catch (PDOException $e) {
+        echo "<script>alert('Error al actualizar la categoría: " . $e->getMessage() . "');</script>";
     }
 }
 
@@ -92,7 +90,6 @@ if (isset($_POST['crear_categoria'])) {
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Nombre</th>
                     <th>Acciones</th>
                 </tr>
@@ -100,18 +97,17 @@ if (isset($_POST['crear_categoria'])) {
             <tbody>
                 <?php
                 // Mostrar categorías
-                $stmt = $conn->query("SELECT * FROM categorias ORDER BY id DESC");
+                $stmt = $conn->query("SELECT * FROM categorias ORDER BY nombre DESC");
                 $categorias = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 foreach ($categorias as $categoria):
                     ?>
                     <tr>
-                        <td><?= $categoria['id']; ?></td>
                         <td><?= $categoria['nombre']; ?></td>
                         <td>
                             <!-- Botones para modificar y eliminar -->
-                            <a href="categorias.php?id=<?= $categoria['id']; ?>"
+                            <a href="categorias.php?nombre=<?= $categoria['nombre']; ?>"
                                 class="btn btn-success btn-sm">Modificar</a>
-                            <a href="categorias.php?eliminar_id=<?= $categoria['id']; ?>" class="btn btn-danger btn-sm"
+                            <a href="categorias.php?eliminar_nombre=<?= $categoria['nombre']; ?>" class="btn btn-danger btn-sm"
                                 onclick="return confirm('¿Seguro que deseas eliminar esta categoría?');">Eliminar</a>
                         </td>
                     </tr>
@@ -120,17 +116,17 @@ if (isset($_POST['crear_categoria'])) {
         </table>
 
         <!-- Formulario para modificar una categoría -->
-        <?php if (isset($_GET['id'])): ?>
+        <?php if (isset($_GET['nombre'])): ?>
             <?php
             // Obtener la categoría que se va a modificar
-            $id_modificar = $_GET['id'];
+            $nombre_modificar = $_GET['nombre'];
 
-            // Verificar si el id es válido (es un número entero)
-            if (filter_var($id_modificar, FILTER_VALIDATE_INT)) {
+            // Verificar que el nombre no esté vacío
+            if (!empty($nombre_modificar)) {
                 // Consulta para obtener los datos de la categoría
-                $sql = 'SELECT * FROM categorias WHERE id = :id';
+                $sql = 'SELECT * FROM categorias WHERE nombre = :nombre';
                 $stmt = $conn->prepare($sql);
-                $stmt->bindParam(':id', $id_modificar, PDO::PARAM_INT);
+                $stmt->bindParam(':nombre', $nombre_modificar, PDO::PARAM_STR);
                 $stmt->execute();
                 $categoria = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -149,7 +145,7 @@ if (isset($_POST['crear_categoria'])) {
                     <input type="text" class="form-control" id="nombre" name="nombre"
                         value="<?= $categoria['nombre']; ?>" required>
                 </div>
-                <input type="hidden" name="id_categoria" value="<?= $categoria['id']; ?>">
+                <input type="hidden" name="nombre_categoria" value="<?= $categoria['nombre']; ?>">
                 <button type="submit" class="btn btn-primary" name="modificar_categoria">Guardar Cambios</button>
             </form>
         <?php endif; ?>

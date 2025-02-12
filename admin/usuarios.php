@@ -197,7 +197,7 @@ if (isset($_POST['nuevo_usuario'])) {
                             <td>
                                 <!-- Modificar: Enlace hacia "editar_usuario.php" con target="_blank" -->
                                 <a href="editar_usuario.php?email=<?= urlencode($usuario['email']); ?>"
-                                    class="btn btn-success btn-sm" target="_blank">Editar</a>
+                                    class="btn btn-success btn-sm" >Editar</a>
                                 <!-- Eliminar: Enlace con confirmación -->
                                 <a href="?eliminar_email=<?= urlencode($usuario['email']); ?>" class="btn btn-danger btn-sm"
                                     onclick="return confirm('¿Estás seguro de eliminar este usuario?');">Eliminar</a>

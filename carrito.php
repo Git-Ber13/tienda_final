@@ -60,7 +60,7 @@ $total = array_sum(array_column($_SESSION['carrito'], 'precio'));
                 <?= $total ?>
                 €</p>
             <div>
-                <form method="post" action="index.php">
+                <form method="post" action="finalizar.php">
                     <span>
                         <a href="index.php" class="btn btn-primary">Seguir comprando</a>
                     </span>
