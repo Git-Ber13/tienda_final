@@ -62,7 +62,7 @@ $ruta = isset($_GET['categoria']) ? $_GET['categoria'] : null;
                   <!-- Contenedor para centrar el texto -->
                   <span class="d-flex align-items-center">
                     Bienvenido
-                    <h3 class="mb-0 ms-2"><u><i><?= $_SESSION['usuario'] ?></i></u></h3>
+                    <h5 class="mb-0 ms-2"><u><i><?= $_SESSION['usuario'] ?></i></u></h5>
                   </span>
                 </li>
               </ul>
@@ -106,6 +106,11 @@ $ruta = isset($_GET['categoria']) ? $_GET['categoria'] : null;
             <?php
             if (isset($_SESSION['rol']) && $_SESSION['rol'] == 'admin') {
               ?>
+              <ul class="nav nav-pills mb-2 mb-lg-0">
+                <li class="nav-item border-start border-end">
+                  <a class="nav-link <?= ($ruta === 'registro_pedidos.php') ? 'active' : ''; ?>" href="registro_pedidos.php?categoria=admin">Registro de Pedidos</a>
+                </li>
+              </ul>
               <ul class="nav nav-pills mb-2 mb-lg-0">
                 <li class="nav-item border-start border-end">
                   <a class="nav-link <?= ($ruta === 'admin/productos.php') ? 'active' : ''; ?>" href="admin/productos.php?categoria=admin">Administrar Web</a>

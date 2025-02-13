@@ -40,14 +40,13 @@ $pedidos_result = $mysqli->query($pedido_sql);
 <body>
 
     <div class="container mt-5">
-        <h2>Lista de Pedidos de <i><u><?= $_SESSION['usuario']?></u></i>.</h2>
+        <h2>Historial de Pedidos</h2>
         <table class="table table-bordered">
             <thead>
                 <tr>
                     <th>Pedido ID</th>
                     <th>Total</th>
                     <th>Fecha</th>
-                    <th>Detalles</th>
                 </tr>
             </thead>
             <tbody>
@@ -82,13 +81,6 @@ $pedidos_result = $mysqli->query($pedido_sql);
                         <td><?= $pedido_id ?></td>
                         <td><?= number_format($total, 2)." €" ?></td>
                         <td><?= $fecha ?></td>
-                        <td>
-                            <button class="btn btn-info" data-toggle="modal" data-target="#modalPedido" 
-                                    data-pedido-id="<?= $pedido_id ?>"
-                                    data-fecha="<?= $fecha ?>"
-                                    data-total="<?= $total ?>"
-                                    data-detalles="<?= htmlspecialchars($detalles) ?>">Ver detalles</button>
-                        </td>
                     </tr>
                 <?php } ?>
             </tbody>
@@ -118,30 +110,6 @@ $pedidos_result = $mysqli->query($pedido_sql);
             </div>
         </div>
     </div>
-
-    <!-- Agregar scripts de Bootstrap -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    <script>
-        // JavaScript para cargar los detalles del pedido en el modal
-        $('#modalPedido').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget); // El botón que activó el modal
-            var pedidoId = button.data('pedido-id');
-            var fecha = button.data('fecha');
-            var total = button.data('total');
-            var detalles = button.data('detalles');
-
-            // Actualizar el modal con los datos del pedido
-            var modal = $(this);
-            modal.find('.modal-title').text('Detalles del Pedido #' + pedidoId);
-            modal.find('#modalFecha').text(fecha);
-            modal.find('#modalTotal').text(total);
-            modal.find('#modalDetalles').html(detalles); // Poner los detalles del pedido
-        });
-    </script>
-
 </body>
 </html>
 

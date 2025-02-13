@@ -2,9 +2,11 @@
 
 <main class="mt-5">
     <!-- Contenedor para mostrar la frase -->
-    <div id="frase-container" class="mt-4 text-center p-5">
-        <h4 id="frase" class="frase-text">¿Sabías que...?</h4>
-    </div>
+    <!--
+        <div id="frase-container" class="mt-4 text-center p-5">
+            <h4 id="frase" class="frase-text">¿Sabías que...?</h4>
+        </div>
+    -->
 
     <div id="carouselExampleCaptions" class="carousel slide">
         <div class="carousel-indicators">
